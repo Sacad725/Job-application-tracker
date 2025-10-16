@@ -21,7 +21,20 @@
 				Console.WriteLine("6) Avsluta");
 				Console.Write("Val: ");
 
-				string val = Console.ReadLine();
+				string Userchoice = Console.ReadLine();
+
+
+
+				switch (Userchoice)
+				{
+					case "1": manager.Addjobb(); break;
+					case "2": manager.ShowAll(); break;
+					case "3": manager.ShowByStatus(); break;
+					case "4": manager.Showbyddate(); break;
+					case "5": manager.s(); break;
+					case "6": körprogrammet = false; break;
+					default: Console.WriteLine("Fel val."); break;
+				}
 
 			}
 
