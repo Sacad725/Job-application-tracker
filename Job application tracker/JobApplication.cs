@@ -31,7 +31,13 @@ namespace Job_application_tracker
 
 		}
 
-		
+
+
+		//  jag får tillbaka Kort text som sammanfattar om ansökan 
+		public string Getsummary()
+		{
+			return ("$ { CompanyName}; - { Positiontitle }; -  {  Applicationstatus }; - { ApplicationDate:d }; - { ResponseDate }");
+		}
 
 
 
