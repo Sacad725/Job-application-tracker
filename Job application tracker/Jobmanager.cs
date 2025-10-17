@@ -148,7 +148,31 @@ namespace Job_application_tracker
 
 		}
 
-	}
+
+
+		// 3 Visa statistik  med hjälp av (Count, GroupBy, Average)
+		public void ShowStatistics()
+		{
+			int totalt = Applications.Count;
+			Console.WriteLine($"Totalt antal ansökningar: {totalt}");
+
+			// antal per status
+			var grupper = Applications.GroupBy(x => x.Applicationstatus);
+			foreach (var g in grupper)
+				Console.WriteLine($"{g.Key}: {g.Count()} st");
+
+			// genomsnittlig svarstid i dagar
+			var svarade = Applications.Where(x => x.ResponseDate.Year > 1);
+			if (svarade.Any())
+			{
+				double medel = svarade.Average(x => (x.ResponseDate - x.ApplicationDate).TotalDays);
+				Console.WriteLine($"Genomsnittlig svarstid: {medel:F1} dagar");
+			}
+			else
+				Console.WriteLine("Inga svar ännu.");
+
+
+		}
 	}
 
 
