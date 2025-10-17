@@ -12,7 +12,7 @@
 
 			while (körprogrammet)
 			{
-				Console.WriteLine("\n=== JOB APPLICATION TRACKER ===");
+				Console.WriteLine("=====JOB APPLICATION TRACKER =====");
 				Console.WriteLine("1) Lägg till ny ansökan");
 				Console.WriteLine("2) uppdatera befinlig ansöka");
 				Console.WriteLine("3) Visa alla ansökningar");
