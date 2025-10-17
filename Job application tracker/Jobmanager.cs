@@ -137,6 +137,8 @@ namespace Job_application_tracker
 
 			Console.WriteLine(" Sortera ansökningar efter datum: ");
 
+
+
 			// skriver ut resutaten 
 
 			foreach (var x in lista)

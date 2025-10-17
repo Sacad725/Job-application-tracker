@@ -29,12 +29,11 @@
 				switch (Userchoice)
 				{
 					case "1": manager.Addjobb(); break;
-					case "2":manager.UpdateStatus();break;
-					case "3": manager.ShowAll(); break;
-					case "4": manager.ShowByStatus(); break;
-					case "5": manager.Showbyddate(); break;
-					case "6": manager.(); break;
-					case "7": körprogrammet = false; break;
+					case "2": manager.ShowAll(); break;
+					case "3": manager.ShowByStatus(); break;
+					case "4": manager.Showbyddate(); break;
+					case "5": manager.s(); break;
+					case "6": körprogrammet = false; break;
 					default: Console.WriteLine("Fel val."); break;
 				}
 
