@@ -12,16 +12,30 @@
 
 			while (körprogrammet)
 			{
-				Console.WriteLine("\n=== JOB APPLICATION TRACKER ===");
+				Console.WriteLine("=====JOB APPLICATION TRACKER =====");
 				Console.WriteLine("1) Lägg till ny ansökan");
-				Console.WriteLine("2) Visa alla ansökningar");
-				Console.WriteLine("3) Filtrera efter status (LINQ)");
-				Console.WriteLine("4) Sortera efter datum (LINQ)");
-				Console.WriteLine("5) Visa statistik (LINQ)");
-				Console.WriteLine("6) Avsluta");
+				Console.WriteLine("2) uppdatera befinlig ansöka");
+				Console.WriteLine("3) Visa alla ansökningar");
+				Console.WriteLine("4) Filtrera efter status ");
+				Console.WriteLine("5) Sortera efter datum ");
+				Console.WriteLine("6) Visa statistik ");
+				Console.WriteLine("7) Avsluta");
 				Console.Write("Val: ");
 
-				string val = Console.ReadLine();
+				string Userchoice = Console.ReadLine();
+
+
+
+				switch (Userchoice)
+				{
+					case "1": manager.Addjobb(); break;
+					case "2": manager.ShowAll(); break;
+					case "3": manager.ShowByStatus(); break;
+					case "4": manager.Showbyddate(); break;
+					case "5": manager.s(); break;
+					case "6": körprogrammet = false; break;
+					default: Console.WriteLine("Fel val."); break;
+				}
 
 			}
 

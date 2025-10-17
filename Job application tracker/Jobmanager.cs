@@ -13,7 +13,7 @@ namespace Job_application_tracker
 	{
 
 		// här kommer sparas alla jobansökningar 
-		List<JobApplication> Applications = new List<JobApplication> ();
+		List<JobApplication> Applications = new List<JobApplication>();
 
 
 		// metod för att lägga till ny ansöka 
@@ -41,7 +41,7 @@ namespace Job_application_tracker
 		}
 
 
-			// Visar alla ansökningar 
+		// Visar alla ansökningar 
 		public void ShowAll()
 		{
 			if (Applications.Count == 0)
@@ -136,6 +136,8 @@ namespace Job_application_tracker
 			var lista = Applications.OrderBy(x => x.ApplicationDate);
 
 			Console.WriteLine(" Sortera ansökningar efter datum: ");
+
+
 
 			// skriver ut resutaten 
 
