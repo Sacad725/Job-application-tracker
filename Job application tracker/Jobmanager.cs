@@ -23,15 +23,16 @@ namespace Job_application_tracker
 			JobApplication NEWjobbs = new JobApplication();
 
 			Console.Clear();
-			Console.WriteLine("  kan du lägga till ny JobbAnsökan ");
-			Console.WriteLine(" FöretagNamn");
+			Console.WriteLine("  kan du lägga till ny JobbAnsöka ");
+			Console.WriteLine(" FöretagNamn: ");
 			NEWjobbs.CompanyName = Console.ReadLine();
-			Console.WriteLine(" JobbTitel");
+			Console.WriteLine(" JobbTitel:");
 			NEWjobbs.Positiontitle = Console.ReadLine();
-			Console.WriteLine(" Ange din LöneAnspråk (kr)");
+			Console.WriteLine(" Ange din LöneAnspråk: (kr)");
 			NEWjobbs.SalaryExpection = Convert.ToInt32(Console.ReadLine());
 			NEWjobbs.ApplicationDate = DateTime.Now;
 			NEWjobbs.Applicationstatus = Status.Applied;
+			NEWjobbs.ResponseDate = default(DateTime);
 
 
 			// lägger till våra objekt till listan  
@@ -44,15 +45,17 @@ namespace Job_application_tracker
 		// Visar alla ansökningar 
 		public void ShowAll()
 		{
+			Console.Clear();
 			if (Applications.Count == 0)
 			{
 				Console.WriteLine("Inga ansökningar finns ännu.");
 				return;
 			}
-
-			foreach (var newjobbs in Applications)
+			else
+			// skriver ut alla ansökningar som är sparad 
+			foreach (var jobbs in Applications)
 			{
-				Console.WriteLine(newjobbs.Getsummary());
+				Console.WriteLine(jobbs.Getsummary());
 			}
 		}
 
@@ -62,6 +65,8 @@ namespace Job_application_tracker
 		public void UpdateStatus()
 		{
 			// Om det inte finns några ansökningar
+
+			Console.Clear();
 			if (Applications.Count == 0)
 			{
 				Console.WriteLine("Det finns inga ansökningar att uppdatera.");
@@ -114,6 +119,7 @@ namespace Job_application_tracker
 		// //  Filtrera efter status med hjälp av   (Where)
 		public void ShowByStatus()
 		{
+			Console.Clear();
 			Console.WriteLine("Vilken status vill du se?");
 			Console.WriteLine("0 = Applied");
 			Console.WriteLine("1 = Interview");
@@ -122,37 +128,79 @@ namespace Job_application_tracker
 
 			int siffrastatus = Convert.ToInt32(Console.ReadLine());
 
-			var lista = Applications.Where(x => (int)x.Applicationstatus == siffrastatus);
+			var lista = Applications.Where(x => (int)x.Applicationstatus == siffrastatus).ToList();
 
+			// Om inga ansökningar hittas 
+			if (lista.Count == 0)
+			{
+				Console.WriteLine(" Ingen Ansökningar  hittas med valda status: ");
+				return;
+
+			}
+			// Annars skriv ut alla som matchar
+			Console.WriteLine($"\nAnsökningar med status: {(Status)siffrastatus}\n");
 			foreach (var a in lista)
 			{
 				Console.WriteLine(a.Getsummary());
 			}
+
 		}
 
 		// sorterar efter datum med hjälp av (orderby)
 		public void Showbyddate()
 		{
-			var lista = Applications.OrderBy(x => x.ApplicationDate);
+			Console.Clear();
 
-			Console.WriteLine(" Sortera ansökningar efter datum: ");
+			// Om det inte finns några ansökningar i listan
+			if (Applications.Count == 0)
+			{
+				Console.WriteLine("Det finns inga ansökningar att visa.");
+				return; // Avslutar metoden
+			}
 
+			// Frågar användaren hur de vill sortera ansökningarna
+			Console.WriteLine("Hur vill du sortera ansökningarna?");
+			Console.WriteLine("1 = Äldsta först");
+			Console.WriteLine("2 = Nyaste först");
 
+			// Läser in användarens val och konverterar till ett heltal
+			int val = Convert.ToInt32(Console.ReadLine());
 
-			// skriver ut resutaten 
+			// Skapar en lista som ska innehålla sorterade ansökningar
+			List<JobApplication> lista;
 
+			// Om användaren väljer 1  sortera från äldst till nyast
+			if (val == 1)
+			{
+				lista = Applications.OrderBy(x => x.ApplicationDate).ToList();
+				Console.WriteLine("\nAnsökningar sorterade efter datum (äldst först):\n");
+			}
+			// ifall användaren väljer 2  sortera från nyast till äldst
+			else if (val == 2)
+			{
+				lista = Applications.OrderByDescending(x => x.ApplicationDate).ToList();
+				Console.WriteLine("\nAnsökningar sorterade efter datum (nyast först):\n");
+			}
+			// Om användaren skriver något annat än 1 eller 2
+			else
+			{
+				Console.WriteLine("Fel val. Välj 1 eller 2.");
+				return; // Avslutar metoden
+			}
+
+			// Loopar igenom listan och skriver ut varje ansökan
 			foreach (var x in lista)
 			{
 				Console.WriteLine(x.Getsummary());
 			}
-
 		}
 
 
 
-		// 3 Visa statistik  med hjälp av (Count, GroupBy, Average)
+		//  Visa statistik  med hjälp av (Count, GroupBy, Average)
 		public void ShowStatistics()
 		{
+			Console.Clear();
 			int totalt = Applications.Count;
 			Console.WriteLine($"Totalt antal ansökningar: {totalt}");
 
@@ -173,7 +221,39 @@ namespace Job_application_tracker
 
 
 		}
+
+		/// Ta bort en ansöka 
+		
+		public void DeleteAjobb()
+		{
+			Console.Clear();
+			if (!Applications.Any())
+			{
+				Console.WriteLine("Inga ansökningar att ta bort.");
+				return;
+			}
+
+			for (int i = 0; i < Applications.Count; i++)
+			{
+				Console.WriteLine($"{i + 1}. {Applications[i].CompanyName} - {Applications[i].Positiontitle}");
+			}
+
+			Console.Write("Ange numret på ansökan du vill ta bort: ");
+			int val = Convert.ToInt32(Console.ReadLine());
+
+			if (val < 1 || val > Applications.Count)
+			{
+				Console.WriteLine("Ogiltigt val.");
+				return;
+			}
+
+			Applications.RemoveAt(val - 1);
+			Console.WriteLine("Ansökan borttagen.");
+		}
 	}
+
+
+}
 
 
 
